@@ -13,21 +13,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Generate donut top-languages card
-        run: |
-          mkdir -p assets
-          curl -fsSL "https://github-readme-stats.vercel.app/api/top-langs/?username=xDaveN&layout=donut&theme=midnight-purple&langs_count=8&hide_border=true&bg_color=30,2D1B69,4B2E83,6A4C93&title_color=E6D5FF&text_color=F3ECFF" -o assets/top-langs-donut.svg
+        uses: readme-tools/github-readme-stats-action@v1
+        with:
+          card: top-langs
+          options: username=${{ github.repository_owner }}&layout=donut&theme=midnight-purple&langs_count=8&hide_border=true&bg_color=30,2D1B69,4B2E83,6A4C93&title_color=E6D5FF&text_color=F3ECFF
+          path: profile/top-langs.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit and push if changed
         run: |
-          if [ -z "$(git status --porcelain assets/top-langs-donut.svg)" ]; then
+          if [ -z "$(git status --porcelain profile/top-langs.svg)" ]; then
             echo "No changes to commit."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/top-langs-donut.svg
+          git add profile/top-langs.svg
           git commit -m "chore: update top languages card"
           git push

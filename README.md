@@ -1,1 +1,1 @@
-[![Top Languages](./assets/top-langs-donut.svg)](https://github.com/anuraghazra/github-readme-stats)
+[![Top Languages](./profile/top-langs.svg)](https://github.com/anuraghazra/github-readme-stats)

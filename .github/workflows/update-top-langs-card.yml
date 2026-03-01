@@ -21,7 +21,8 @@ jobs:
           card: top-langs
           options: username=${{ github.repository_owner }}&layout=donut&theme=midnight-purple&langs_count=8&hide_border=true&bg_color=30,2D1B69,4B2E83,6A4C93&title_color=E6D5FF&text_color=F3ECFF
           path: profile/top-langs.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # Set GRS_PAT in repo secrets (classic PAT with repo + read:user) to include private repositories.
+          token: ${{ secrets.GRS_PAT != '' && secrets.GRS_PAT || secrets.GITHUB_TOKEN }}
 
       - name: Commit and push if changed
         run: |
